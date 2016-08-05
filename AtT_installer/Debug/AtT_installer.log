@@ -1,0 +1,23 @@
+Build started 18.07.2016 13:26:17.
+     1>Project "C:\Users\Dorin\documents\visual studio 2015\Projects\AtT_installer\AtT_installer\AtT_installer.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt BP_functor.cpp
+         BP_functor.cpp
+     1>c:\users\dorin\documents\visual studio 2015\projects\att_installer\att_installer\bp_functor.cpp(4): error C2065: 'dummy_not_used': undeclared identifier
+     1>c:\users\dorin\documents\visual studio 2015\projects\att_installer\att_installer\bp_functor.cpp(4): error C2975: 'size': invalid template argument for '_back_up', expected compile-time constant expression
+         c:\users\dorin\documents\visual studio 2015\projects\att_installer\att_installer\bp_functor.h(11): note: see declaration of 'size'
+     1>c:\users\dorin\documents\visual studio 2015\projects\att_installer\att_installer\bp_functor.cpp(3): error C3211: '_back_up<0>::_back_up': explicit specialization is using partial specialization syntax, use template <> instead
+         c:\users\dorin\documents\visual studio 2015\projects\att_installer\att_installer\bp_functor.h(16): note: see declaration of '_back_up<0>::_back_up'
+     1>c:\users\dorin\documents\visual studio 2015\projects\att_installer\att_installer\bp_functor.cpp(9): error C2146: syntax error: missing '>' before identifier 'size'
+     1>c:\users\dorin\documents\visual studio 2015\projects\att_installer\att_installer\bp_functor.cpp(9): error C2993: 'size_t': illegal type for non-type template parameter 'size'
+     1>c:\users\dorin\documents\visual studio 2015\projects\att_installer\att_installer\bp_functor.cpp(12): error C2244: '_back_up::operator ()': unable to match function definition to an existing declaration
+         c:\users\dorin\documents\visual studio 2015\projects\att_installer\att_installer\bp_functor.cpp(9): note: see declaration of '_back_up::operator ()'
+         c:\users\dorin\documents\visual studio 2015\projects\att_installer\att_installer\bp_functor.cpp(12): note: definition
+         c:\users\dorin\documents\visual studio 2015\projects\att_installer\att_installer\bp_functor.cpp(12): note: 'const _back_up &_back_up::operator ()(const _file_ &,wchar_t (&)[size])'
+         c:\users\dorin\documents\visual studio 2015\projects\att_installer\att_installer\bp_functor.cpp(12): note: existing declarations
+         c:\users\dorin\documents\visual studio 2015\projects\att_installer\att_installer\bp_functor.cpp(12): note: 'const _back_up<size> &_back_up<size>::operator ()(const _file_ &,wchar_t (&)[])'
+     1>Done Building Project "C:\Users\Dorin\documents\visual studio 2015\Projects\AtT_installer\AtT_installer\AtT_installer.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:01.20
