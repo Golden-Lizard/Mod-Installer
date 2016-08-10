@@ -7,6 +7,7 @@
 #include"_file_.h"
 
 #define windows_lean_and_mean
+#define old_path L".../src/extra"
 
 template<size_t size>
 class _back_up
@@ -20,6 +21,7 @@ class _back_up
 
 		static std::unique_ptr<_int16> _backed_up;
 		std::unique_ptr<_file_> back_up;
+		std::unique_ptr<_file_> current;
 
 		std::wstring _back_up_path;
 
