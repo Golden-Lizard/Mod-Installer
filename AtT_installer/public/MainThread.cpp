@@ -4,11 +4,16 @@
 
 #include<Windows.h>
 #include<thread>
+#include<string>
+#include<fstream>
+#include<vector>
 #include"_file_.h"
 #include"BP_functor.h"
 
 #define windows_mean_and_lean
 const wchar_t g_szClassName[] = L"NoErwinusInstaller";
+
+void create_file_array(std::fstream const & file_names);
 
 LRESULT CALLBACK WindowProc
 (
@@ -72,3 +77,11 @@ int _stdcall WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR 
 
 	return msg.wParam;
 }
+
+void create_file_array(std::fstream file_names, std::vector<_file_> & files)
+{
+	for (std::string name; std::getline(file_names, name);)
+	{
+		files.push_back(_file_::_file_(std::wstring(name.c_str()), std::wstring(L""), std::wstring(L""), true));
+	}
+};
