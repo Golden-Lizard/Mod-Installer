@@ -13,7 +13,7 @@
 #define windows_mean_and_lean
 const wchar_t g_szClassName[] = L"NoErwinusInstaller";
 
-void create_file_array(std::fstream const & file_names);
+void create_file_array(std::fstream const & file_names, std::vector<_file_> & files);
 
 LRESULT CALLBACK WindowProc
 (
@@ -21,7 +21,7 @@ LRESULT CALLBACK WindowProc
 	_In_ UINT uMsg,
 	_In_ WPARAM wParam,
 	_In_ LPARAM lParam
-	)
+)
 {
 	switch (uMsg)
 	{
@@ -82,6 +82,9 @@ void create_file_array(std::fstream file_names, std::vector<_file_> & files)
 {
 	for (std::string name; std::getline(file_names, name);)
 	{
-		files.push_back(_file_::_file_(std::wstring(name.c_str()), std::wstring(L""), std::wstring(L""), true));
+		std::wstring tmp(name.length(), L' ');
+		std::copy(name.begin(), name.end(), tmp.begin());
+		files.push_back(_file_::_file_(tmp, std::wstring(L""), std::wstring(L""), true));
 	}
 };
+
