@@ -29,17 +29,8 @@ LRESULT CALLBACK WindowProc
 	
 	case WM_LBUTTONDOWN:
 	{
-		Hash_table<std::string> table(10);
-		try
-		{
-			table.Add_item("abc", "abc");
-		}
-		catch (...)
-		{
-			MessageBox(hwnd, L"ERROR", L"ERROR", MB_OK);
-		}
+	 /////////////////////////////
 	}
-
 		break;
 	case WM_CLOSE:
 		DestroyWindow(hwnd);
