@@ -1,19 +1,20 @@
-/*
-
-*/
 
 #include<Windows.h>
+
 #include<thread>
 #include<string>
 #include<fstream>
 #include<vector>
+
+#include"resources.h"
 #include"_file_.h"
 #include"BP_functor.h"
+#include"Hash.h"
 
 #define windows_mean_and_lean
 const wchar_t g_szClassName[] = L"NoErwinusInstaller";
 
-void create_file_array(std::fstream const & file_names, std::vector<_file_> & files);
+void create_file_array(std::fstream file_names, std::vector<_file_> & files);
 
 LRESULT CALLBACK WindowProc
 (
@@ -25,6 +26,21 @@ LRESULT CALLBACK WindowProc
 {
 	switch (uMsg)
 	{
+	
+	case WM_LBUTTONDOWN:
+	{
+		Hash_table<std::string> table(10);
+		try
+		{
+			table.Add_item("abc", "abc");
+		}
+		catch (...)
+		{
+			MessageBox(hwnd, L"ERROR", L"ERROR", MB_OK);
+		}
+	}
+
+		break;
 	case WM_CLOSE:
 		DestroyWindow(hwnd);
 		break;
@@ -37,46 +53,52 @@ LRESULT CALLBACK WindowProc
 	return 0;
 }
 
-int _stdcall WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+int _stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	
-	WNDCLASSEX win;
+	WNDCLASSEX winz;
 	HWND hwnd;
-	MSG msg;
+	MSG Msg;
 
-	win.cbSize =sizeof(WNDCLASSEX);
-	win.style = 0 ;
-	win.lpfnWndProc=WindowProc;
-	win.cbClsExtra = 0;
-	win.cbWndExtra =0 ;
-	win.hInstance = hInstance;
-	win.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-	win.hCursor = LoadCursor(NULL, IDC_ARROW);
-	win.hbrBackground = (HBRUSH)(COLOR_WINDOW+1);
-	win.lpszMenuName = NULL;
-	win.lpszClassName = g_szClassName;
-	win.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+	winz.cbSize = sizeof(WNDCLASSEX);
+	winz.style = 0;
+	winz.lpfnWndProc = WindowProc;
+	winz.cbClsExtra = 0;
+	winz.cbWndExtra = 0;
+	winz.hInstance = hInstance;
+	winz.hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_TRASHICON));
+	winz.hCursor = LoadCursor(NULL, IDC_ARROW);
+	winz.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+	winz.lpszMenuName = NULL;
+	winz.lpszClassName = g_szClassName;
+	winz.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+
+	if (!RegisterClassEx(&winz))
+	{
+		MessageBox(NULL, L"ERROR", L"ERWANUS", MB_OK);
+		return 0;
+	}
 
 	hwnd = CreateWindowEx(WS_EX_CLIENTEDGE, g_szClassName, L"Ashan Goes to the TrashCan",
-		   WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 200, 200, NULL, NULL, hInstance, NULL);
+		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 200, 200, NULL, NULL, hInstance, NULL);
 
-	if(!RegisterClassEx(&win))
+	if (hwnd == NULL)
 	{
 		MessageBox(hwnd, L"Registration Error! Erwin will prevail", L"Error", MB_ICONEXCLAMATION);
 		return 0;
 	}
 
-	ShowWindow(hwnd,nCmdShow);
+	ShowWindow(hwnd, nCmdShow);
 	UpdateWindow(hwnd);
 
-	while (GetMessage(&msg, hwnd, NULL, NULL))
+	while (GetMessage(&Msg, hwnd, 0, 0)>0)
 	{
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
+		TranslateMessage(&Msg);
+		DispatchMessage(&Msg);
 	}
 
-	return msg.wParam;
+	return Msg.wParam;
 }
+
 
 void create_file_array(std::fstream file_names, std::vector<_file_> & files)
 {
