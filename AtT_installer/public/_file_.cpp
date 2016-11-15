@@ -6,7 +6,6 @@ _file_::_file_(const std::wstring & L_new_path, const std::wstring & L_name, con
 	new_name(new std::wstring(L_name)),
 	b_IsReplacement(b_IS_REPLACEMENT)
 {
-	++*u16_counter;
 
 }
 
