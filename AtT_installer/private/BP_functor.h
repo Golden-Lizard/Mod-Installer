@@ -16,6 +16,9 @@ class _back_up
 
 	_back_up();
 	_back_up const & operator()(const _file_ & _file_to_bck_up, wchar_t (&_backup_path)[]);
+	void create_Path();
+	void copy_File();
+	void delete_Bck();
 
     private:
 
