@@ -19,7 +19,8 @@ class _back_up
 	void create_Path();
 	void copy_File();
 	void delete_Bck();
-
+        void check_Bck();
+	//needs expanding
     private:
 
 		static std::unique_ptr<_int16> _backed_up;
@@ -29,6 +30,7 @@ class _back_up
 		std::wstring _back_up_path;
 
 };
+
 
 
 #endif
