@@ -1,9 +1,12 @@
 
+#define windows_mean_and_lean
+
 #include<Windows.h>
 
 #include<thread>
 #include<string>
 #include<fstream>
+#include<cwchar>
 #include<vector>
 
 #include"resources.h"
@@ -11,10 +14,15 @@
 #include"BP_functor.h"
 #include"Hash.h"
 
-#define windows_mean_and_lean
+#define CONCAT(a,b) a##b
+#define MAKE_W(a)   L##a
+
 const wchar_t g_szClassName[] = L"NoErwinusInstaller";
 
 void create_file_array(std::fstream file_names, std::vector<_file_> & files);
+
+template<typename ...args>
+void PrintMessage(HWND hwnd, LPCWSTR text, int long const & message_type, args ...);
 
 LRESULT CALLBACK WindowProc
 (
@@ -26,16 +34,23 @@ LRESULT CALLBACK WindowProc
 {
 	switch (uMsg)
 	{
-	
+	case WM_CREATE:
+	{
+		
+	}
+	break;
+    
 	case WM_LBUTTONDOWN:
 	{
-	 /////////////////////////////
+
 	}
 		break;
 	case WM_CLOSE:
 		DestroyWindow(hwnd);
 		break;
 	case WM_DESTROY:
+		MessageBeep(true);
+		PrintMessage(hwnd, L"Are you sure about that%c", MB_YESNO, '?');
 		PostQuitMessage(0);
 		break;
 	default:
@@ -56,12 +71,12 @@ int _stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	winz.cbClsExtra = 0;
 	winz.cbWndExtra = 0;
 	winz.hInstance = hInstance;
-	winz.hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_TRASHICON));
+	winz.hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_INSTALL_ICON));
 	winz.hCursor = LoadCursor(NULL, IDC_ARROW);
-	winz.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+	winz.hbrBackground = (HBRUSH)GetStockObject(GRAY_BRUSH);//(COLOR_WINDOW + 1);
 	winz.lpszMenuName = NULL;
 	winz.lpszClassName = g_szClassName;
-	winz.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+	winz.hIconSm = LoadIcon(NULL, L"TRASHICON");
 
 	if (!RegisterClassEx(&winz))
 	{
@@ -99,5 +114,16 @@ void create_file_array(std::fstream file_names, std::vector<_file_> & files)
 		std::copy(name.begin(), name.end(), tmp.begin());
 		files.push_back(_file_::_file_(tmp, std::wstring(L""), std::wstring(L""), true));
 	}
+}
+
+template<typename ...args>
+void PrintMessage(HWND hwnd,LPCWSTR text, int long const & message_type, args ... arguments)
+{   
+	wchar_t * buffer= new wchar_t[255];
+	swprintf(buffer,255,text,arguments...);
+
+	MessageBox(hwnd, buffer, L"Message", message_type);
+
+	delete[]buffer;
 };
 
