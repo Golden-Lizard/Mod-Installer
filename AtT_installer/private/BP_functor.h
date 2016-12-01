@@ -28,6 +28,7 @@ class _back_up
 		std::unique_ptr<_file_> current;
 
 		std::wstring _back_up_path;
+	
 
 };
 
